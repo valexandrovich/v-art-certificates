@@ -10,6 +10,7 @@ const qrCode = require('qrcode');
 
 const app = express();
 const port = 3023;
+const host = 'https://certificate.v-art.digital'
 
 app.use(cors());
 
@@ -34,7 +35,7 @@ app.post('/api/certificates/v2', upload,
             const certFileName = Date.now() + '_certificate.pdf';
             const result = await buildCertificateFile(req, certFileName);
             console.log(result)
-            res.json({downloadUrl: `http://${req.headers.host}/download/` + certFileName});
+            res.json({downloadUrl: host + `/download/` + certFileName});
         } catch (error) {
             console.error(error);
             res.status(500).json({message: 'An error occurred', error: error.message});
@@ -110,7 +111,7 @@ function buildCertificateFile(req, certFileName) {
                 valign: 'center'// Scale the image to 250x300 (optional)
             });
 
-            const qrCodeDataURL = await qrCode.toDataURL(`http://${req.headers.host}/download/` + certFileName);
+            const qrCodeDataURL = await qrCode.toDataURL(host + `/download/` + certFileName);
             doc.image(qrCodeDataURL, 40, 870,
                 {
                     fit: [200, 200],
