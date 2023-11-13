@@ -23,6 +23,9 @@ const storage = multer.diskStorage({
 });
 const upload = multer({storage: storage}).fields([{name: 'preview_image', maxCount: 1}]);
 
+app.get('/api/tst', (req, res) => {
+    res.status(400).json({message: 'Test is passed'})
+})
 
 app.post('/api/certificates/v2', upload,
     async (req, res) => {
