@@ -34,7 +34,7 @@ app.post('/api/certificates/v2', upload,
         try {
             const certFileName = Date.now() + '_certificate.pdf';
             const result = await buildCertificateFile(req, certFileName);
-            console.log(result)
+            // console.log(result)
             res.json({downloadUrl: host + `/download/` + certFileName});
         } catch (error) {
             console.error(error);
