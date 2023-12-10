@@ -7,7 +7,7 @@ const path = require('path');
 const qrCode = require('qrcode');
 
 const app = express();
-const port = 3023;
+const port = 80;
 const host = 'http://localhost'
 // const host = 'https://certificate.v-art.digital'
 
@@ -709,6 +709,8 @@ function buildTokenCertificateFile(req, certFileName) {
             doc.fillOpacity(1);
 
             console.log(body.artists)
+
+
 
             doc.fillOpacity(1);
             doc.fontSize(14);
