@@ -490,17 +490,26 @@ function buildLicenseCertificateFile(req, certFileName) {
             doc.fillOpacity(1);
 
 
-            doc.fillOpacity(1);
-            doc.fontSize(14);
-            doc.fillColor('black')
-            doc.font(font400).text(body.assetName, 555, yStartPos + (yOffset * 0) + 20, {
-                width: 430,
-                align: 'left'
-            });
-            doc.fillOpacity(1);
+        // Asset Name Text
+        let assetNameText = 'Link'; // replace with body.assetName in your code
+        doc.fillOpacity(1);
+        doc.fontSize(14);
+        doc.fillColor('blue'); // making the text blue to resemble a link
+        doc.font(font400).text(assetNameText, 555, yStartPos + 20, {
+            width: 430,
+            align: 'left'
+        });
+        doc.fillOpacity(1);
+
+        // Adding the hyperlink
+        textWidth = doc.widthOfString(assetNameText);
+        let textHeight = doc.currentLineHeight();
+
+        doc.link(555, yStartPos + 20, textWidth, textHeight, body.link);
 
 
-            text = 'Genre'
+
+        text = 'Genre'
             doc.fillOpacity(0.5);
             doc.fontSize(14);
             doc.fillColor('black')
@@ -582,9 +591,17 @@ function buildLicenseCertificateFile(req, certFileName) {
             doc.fillOpacity(1);
 
 
-            doc.pipe(fs.createWriteStream(filePath));
+            const stream = fs.createWriteStream(filePath);
+            doc.pipe(stream);
             doc.end();
-            resolve(doc)
+
+            stream.on('finish', () => {
+                resolve(doc);
+            });
+
+            stream.on('error', (err) => {
+                reject(err);
+            });
 
         }
     )
@@ -709,7 +726,6 @@ function buildTokenCertificateFile(req, certFileName) {
             doc.fillOpacity(1);
 
             console.log(body.artists)
-
 
 
             doc.fillOpacity(1);
@@ -936,9 +952,17 @@ function buildTokenCertificateFile(req, certFileName) {
                     'resale as NFT.', 384, 822, {width: 290})
             }
 
-            doc.pipe(fs.createWriteStream(filePath));
-            doc.end();
-            resolve(doc)
+        const stream = fs.createWriteStream(filePath);
+        doc.pipe(stream);
+        doc.end();
+
+        stream.on('finish', () => {
+            resolve(doc);
+        });
+
+        stream.on('error', (err) => {
+            reject(err);
+        });
 
         }
     )
