@@ -530,7 +530,8 @@ function buildLicenseCertificateFile(req, certFileName) {
             doc.fillOpacity(1);
 
 
-            text = 'Dimensions'
+            // text = 'Dimensions'
+            text = 'Platform'
             doc.fillOpacity(0.5);
             doc.fontSize(14);
             doc.fillColor('black')
@@ -544,7 +545,8 @@ function buildLicenseCertificateFile(req, certFileName) {
             doc.fillOpacity(1);
             doc.fontSize(14);
             doc.fillColor('black')
-            doc.font(font400).text(body.dimensions, 555, yStartPos + (yOffset * 2) + 20, {
+            // doc.font(font400).text(body.dimensions, 555, yStartPos + (yOffset * 2) + 20, {
+            doc.font(font400).text(body.platform, 555, yStartPos + (yOffset * 2) + 20, {
                 width: 430,
                 align: 'left'
             });
